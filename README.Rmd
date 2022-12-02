@@ -1,0 +1,58 @@
+#TextWiller
+
+Collection of text mining utilities, specially devoted to the italian language.
+
+* * *
+
+## Set up
+
+To **install** this github version type (in R):
+
+    #if devtools is not installed yet: 
+    # install.packages("devtools") 
+    
+    #if you wanto to download the last stable version, use the following code
+    library(devtools)
+    install_github("livioivil/TextWiller@TextWiller_JOSS")
+    
+    #if you want to download the latest release (unstable) use the following code
+    library(devtools)
+    install_github("livioivil/TextWiller",build_vignettes = TRUE)
+
+
+* * *
+
+## Some examples
+
+
+```{r}
+library(TextWiller)
+
+### normalize texts
+normalizzaTesti(c('ciao bella!','www.associazionerospo.org','noooo, che grandeeeeee!!!!!','mitticooo', 'mai possibile?!?!'))
+
+# get the sentiment of a document
+sentiment(c("ciao bella!","farabutto!","fofi sei figo!"))
+
+
+# Classify users' gender by (italian) names
+classificaUtenti(c('livio','alessandra','andrea'))
+# and classify location
+data(vocabolarioLuoghi)
+classificaUtenti(c('Bosa','Pordenone, Italy','Milan'),vocabolarioLuoghi)
+
+
+# find re-tweet (RT) by evaluation of texts similarity (and replace texts so that they become equals):
+data(TWsperimentazioneanimale)
+RTHound(TWsperimentazioneanimale[1:10,"text"], S = 3, L = 1, 
+                 hclust.dist = 100, hclust.method = "complete",
+                 showTopN=3)
+
+
+#extract short urls and get the long ones
+## Not run: urls=urlExtract("Influenza Vaccination | ONS - Oncology Nursing Society http://t.co/924sRKGBU9 See All http://t.co/dbtPJRMl00")
+
+#extract users:
+patternExtract(c("@luca @paolo: buon giorno!", "@matteo: a te!"), pattern="@\\w+")
+```
+
